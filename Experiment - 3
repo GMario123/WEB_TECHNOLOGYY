@@ -1,0 +1,297 @@
+Responsive webpage using HTML5 and CSS3
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Personal Web Page</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{Responsive webpage using HTML5 and CSS3
+            background:#f2f2f2;
+        }
+
+        .container{
+            width:1000px;
+            margin:20px auto;
+            border:2px solid #999;
+            background:white;
+        }
+
+        /* Header */
+        .header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            background:linear-gradient(to right,#9933ff,#7b1fa2);
+            color:white;
+            padding:20px;
+        }
+
+        .header img{
+            width:120px;
+            height:120px;
+            border-radius:8px;
+        }
+
+        .title{
+            flex:1;
+            text-align:center;
+        }
+
+        .title h1{
+            font-size:36px;
+        }
+
+        .title h3{
+            font-size:28px;
+        }
+
+        .social{
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+        }
+
+        .social img{
+            width:40px;
+            height:40px;
+        }
+
+        /* Menu */
+
+        .menu{
+            display:flex;
+            justify-content:space-around;
+            background:#d9f2ff;
+            padding:15px;
+        }
+
+        .menu a{
+            text-decoration:none;
+            color:black;
+            font-size:20px;
+            font-weight:bold;
+        }
+
+        .menu a:hover{
+            color:blue;
+        }
+
+        /* About */
+
+        .about{
+            display:flex;
+            align-items:center;
+        }
+
+        .text{
+            width:45%;
+            padding:25px;
+            background:#d6ecff;
+            font-size:20px;
+            line-height:35px;
+        }
+
+        .banner{
+            width:55%;
+        }
+
+        .banner img{
+            width:100%;
+            height:300px;
+            object-fit:cover;
+        }
+
+        /* Skills */
+
+        .skills{
+            display:flex;
+            justify-content:space-around;
+            padding:25px;
+            background:#eeeeee;
+        }
+
+        .skill{
+            width:200px;
+            text-align:center;
+            background:white;
+            border:1px solid gray;
+            padding:15px;
+        }
+
+        .skill img{
+            width:130px;
+            height:130px;
+        }
+
+        .skill h2{
+            margin-top:10px;
+        }
+
+        /* Family */
+
+        .family{
+            display:flex;
+            justify-content:space-around;
+            padding:30px;
+            background:linear-gradient(to right,#0b4f8a,#1f7dbb);
+            color:white;
+        }
+
+        .member{
+            width:30%;
+            text-align:center;
+        }
+
+        .member img{
+            width:180px;
+            height:180px;
+            border-radius:50%;
+            border:5px solid black;
+        }
+
+        .member h3{
+            color:#ccff66;
+            margin:15px 0;
+        }
+
+        .member p{
+            line-height:25px;
+        }
+
+        /* Footer */
+
+        footer{
+            background:#f5deb3;
+            text-align:center;
+            padding:20px;
+            font-style:italic;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+
+    <div class="header">
+
+        <img src="C:\Users\gubba\Downloads\WhatsApp Image 2026-07-31 at 11.41.08.jpeg">
+
+        <div class="title">
+            <h3>G MARIO SHILSHI</h3>
+        </div>
+
+        <div class="social">
+            <img src="C:\Users\gubba\Downloads\facebook.jfif">
+            <img src="C:\Users\gubba\Downloads\twitter.jfif">
+            <img src="C:\Users\gubba\Downloads\google.jfif">
+        </div>
+
+    </div>
+
+    <!-- Menu -->
+
+    <div class="menu">
+        <a href="#">Personal</a>
+        <a href="#">Academics</a>
+        <a href="#">Activity</a>
+        <a href="#">Others</a>
+    </div>
+
+    <!-- About -->
+
+    <div class="about">
+
+        <div class="text">
+            <p>
+                I am currently pursuing B.Tech Computer Science and Engineering.
+                I am passionate about digital security and always ready to explore
+                the future world of technology. I enjoy learning new programming
+                languages and developing creative web applications.
+            </p>
+        </div>
+
+        <div class="banner">
+            <img src="C:\Users\gubba\Downloads\3fig.png">
+        </div>
+
+    </div>
+
+    <!-- Skills -->
+
+    <div class="skills">
+
+        <div class="skill">
+            <img src="C:\Users\gubba\Downloads\html5.jfif">
+            <h2>HTML5</h2>
+        </div>
+
+        <div class="skill">
+            <img src="C:\Users\gubba\Downloads\css.jfif">
+            <h2>CSS3</h2>
+        </div>
+
+        <div class="skill">
+            <img src="C:\Users\gubba\Downloads\javascript.jfif">
+            <h2>JavaScript</h2>
+        </div>
+
+        <div class="skill">
+            <img src="C:\Users\gubba\Downloads\php.jfif">
+            <h2>PHP</h2>
+        </div>
+
+    </div>
+
+    <!-- Family -->
+
+    <div class="family">
+
+        <div class="member">
+            <img src="C:\Users\gubba\Downloads\dad.jpg">
+            <h3>G ELISHA BABU</h3>
+            <p>
+                It was my father who taught me to value myself.
+            </p>
+        </div>
+
+        <div class="member">
+            <img src="C:\Users\gubba\Downloads\mom.avif">
+            <h3>G ANEELA KUMARI</h3>
+            <p>
+                My mother taught me that we all have the power to achieve our dreams.
+            </p>
+        </div>
+
+        <div class="member">
+            <img src="C:\Users\gubba\Downloads\sister.avif">
+            <h3>G KARUNYA ELSHI</h3>
+            <p>
+                A sister is both your mirror and your opposite.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+
+    <footer>
+        <p>COIMBATORE</p>
+        <p>© 2024-2028. (URK24CS1145) - Web Technology Lab Batch 3. All Rights Reserved.</p>
+    </footer>
+
+</div>
+
+</body>
+</html>
