@@ -1,0 +1,226 @@
+1) Digital clock
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digital Clock</title>
+</head>
+
+<body>
+
+    <h1>Digital Clock!</h1>
+
+    <h2 id="time"></h2>
+
+    <script>
+
+        function display() {
+
+            var d = new Date();
+
+            var hours = d.getHours();
+            var minutes = d.getMinutes();
+            var seconds = d.getSeconds();
+
+            document.getElementById("time").innerHTML =
+                hours + ":" + minutes + ":" + seconds;
+        }
+
+        display();
+
+        setInterval(display, 1000);
+
+    </script>
+
+</body>
+</html>
+
+2) Change Background colour
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change Background Color</title>
+</head>
+
+<body>
+
+    <h1>Background Color Changes Automatically</h1>
+
+    <script>
+
+        var colors = [
+            "red",
+            "yellow",
+            "green",
+            "blue",
+            "pink",
+            "orange"
+        ];
+
+        var i = 0;
+
+        function changeColor() {
+
+            document.body.style.backgroundColor = colors[i];
+
+            i++;
+
+            if (i == colors.length) {
+                i = 0;
+            }
+        }
+
+        setInterval(changeColor, 1000);
+
+    </script>
+
+</body>
+</html>
+
+3) Increase fontsize when mouse moves
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Font Size Using Mouse Events</title>
+</head>
+
+<body>
+
+    <h1>Increase and Decrease Font Size</h1>
+
+    <p id="text"
+       onmouseover="increaseSize()"
+       onmouseout="decreaseSize()">
+
+        Move your mouse over this text to increase the font size.
+        Move your mouse away to decrease the font size.
+
+    </p>
+
+    <script>
+
+        function increaseSize() {
+            document.getElementById("text").style.fontSize = "30px";
+        }
+
+        function decreaseSize() {
+            document.getElementById("text").style.fontSize = "16px";
+        }
+
+    </script>
+</body>
+</html>
+
+4) Move and stop car
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Move and Stop Car</title>
+</head>
+
+<body>
+
+    <h1>Move and Stop a Car</h1>
+
+    <button onclick="moveCar()">Move</button>
+    <button onclick="stopCar()">Stop</button>
+
+    <br><br>
+
+    <img src="car.jpg" id="car" width="200">
+
+    <script>
+
+        var position = 0;
+        var timer;
+
+        function moveCar() {
+
+            clearInterval(timer);
+
+            timer = setInterval(function() {
+
+                position = position + 5;
+
+                document.getElementById("car").style.marginLeft =
+                    position + "px";
+
+            }, 100);
+
+        }
+
+        function stopCar() {
+
+            clearInterval(timer);
+
+        }
+
+    </script>
+
+</body>
+</html>
+
+5) Students details
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Array of Student Objects</title>
+</head>
+
+<body>
+
+    <h1>Student Details</h1>
+
+    <button onclick="displayStudents()">
+        Display Students
+    </button>
+
+    <div id="output"></div>
+
+    <script>
+
+        var students = [
+            {
+                name: "Shilshi",
+                age: 20,
+                course: "B.Tech"
+            },
+            {
+                name: "Rohith",
+                age: 21,
+                course: "B.Tech"
+            },
+            {
+                name: "Surya",
+                age: 20,
+                course: "B.Tech"
+            }
+        ];
+
+        function displayStudents() {
+
+            var result = "";
+
+            for (var i = 0; i < students.length; i++) {
+
+                result += "<p>";
+
+                result += "Name: " +
+                    students[i].name + "<br>";
+
+                result += "Age: " +
+                    students[i].age + "<br>";
+
+                result += "Course: " +
+                    students[i].course;
+
+                result += "</p><hr>";
+            }
+
+            document.getElementById("output").innerHTML =
+                result;
+        }
+
+    </script>
+
+</body>
+</html>
