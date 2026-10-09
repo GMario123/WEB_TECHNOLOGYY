@@ -1,0 +1,212 @@
+Code:
+Home.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration Form</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            margin: 30px;
+        }
+        form {
+            background: white;
+            width: 350px;
+            padding: 20px;
+            margin: auto;
+            border-radius: 8px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 7px 0 12px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #218838;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2 align="center">User Registration Form</h2>
+
+    <form action="/server" method="POST">
+        <label>Name:</label>
+        <input type="text" name="name" required>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <label>Age:</label>
+        <input type="number" name="age" min="1" required>
+
+        <label>Mobile Number:</label>
+        <input type="tel" name="mobile" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Gender:</label>
+        <select name="gender" required>
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+        </select>
+
+        <label>State:</label>
+        <input type="text" name="state" required>
+
+        <label>Skills:</label>
+        <input type="text" name="skills" required>
+
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
+app.js
+const express = require("express");
+const { MongoClient } = require("mongodb");
+const path = require("path");
+
+const app = express();
+const PORT = 5000;
+
+const client = new MongoClient("mongodb://127.0.0.1:27017");
+
+app.use(express.urlencoded({ extended: true }));
+
+let usersCollection;
+
+async function startServer() {
+    try {
+        await client.connect();
+
+        const database = client.db("RegistrationDB");
+        usersCollection = database.collection("users");
+
+        console.log("MongoDB Connected Successfully");
+
+        app.get("/", (req, res) => {
+            res.sendFile(path.join(__dirname, "home.html"));
+        });
+
+        app.post("/server", async (req, res) => {
+            try {
+                const data = req.body;
+
+                if (
+                    !data.name || !data.password || !data.age ||
+                    !data.mobile || !data.email || !data.gender ||
+                    !data.state || !data.skills
+                ) {
+                    return res.status(400).send("All fields are required.");
+                }
+
+                await usersCollection.insertOne({
+                    name: data.name,
+                    password: data.password,
+                    age: Number(data.age),
+                    mobile: data.mobile,
+                    email: data.email,
+                    gender: data.gender,
+                    state: data.state,
+                    skills: data.skills
+                });
+
+                res.redirect("/server");
+            } catch (error) {
+                console.error(error);
+                res.status(500).send("Error saving user details.");
+            }
+        });
+
+        app.get("/server", async (req, res) => {
+            try {
+                const users = await usersCollection.find(
+                    {},
+                    { projection: { password: 0 } }
+                ).toArray();
+
+                let html = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Registered Users</title>
+                    <style>
+                        body {
+                            font-family: Arial;
+                            margin: 25px;
+                            background: #f2f2f2;
+                        }
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            background: white;
+                        }
+                        th, td {
+                            border: 1px solid #ccc;
+                            padding: 10px;
+                            text-align: left;
+                        }
+                        th {
+                            background: #218838;
+                            color: white;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h2>Registered Users</h2>
+                    <p><a href="/">Register Another User</a></p>
+                    <table>
+                    <tr>
+                        <th>Name</th><th>Age</th><th>Mobile</th>
+                        <th>Email</th><th>Gender</th><th>State</th>
+                        <th>Skills</th>
+                    </tr>`;
+
+                users.forEach(user => {
+                    const safe = value =>
+                        String(value ?? "").replace(/[&<>"']/g, ch => ({
+                            "&": "&amp;",
+                            "<": "&lt;",
+                            ">": "&gt;",
+                            '"': "&quot;",
+                            "'": "&#39;"
+                        })[ch]);
+
+                    html += `<tr>
+                        <td>${safe(user.name)}</td>
+                        <td>${safe(user.age)}</td>
+                        <td>${safe(user.mobile)}</td>
+                        <td>${safe(user.email)}</td>
+                        <td>${safe(user.gender)}</td>
+                        <td>${safe(user.state)}</td>
+                        <td>${safe(user.skills)}</td>
+                    </tr>`;
+                });
+
+                html += "</table></body></html>";
+                res.send(html);
+            } catch (error) {
+                console.error(error);
+                res.status(500).send("Error retrieving user details.");
+            }
+        });
+
+        app.listen(PORT, () => {
+            console.log(`Server running at http://localhost:${PORT}`);
+        });
+
+    } catch (error) {
+        console.error("Unable to connect to MongoDB:", error);
+    }
+}
+
+startServer();
